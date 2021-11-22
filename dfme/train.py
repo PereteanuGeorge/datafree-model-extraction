@@ -206,7 +206,7 @@ def main():
                         help='disables CUDA training')
     parser.add_argument('--seed', type=int, default=random.randint(0, 100000), metavar='S',
                         help='random seed (default: 1)')
-    parser.add_argument('--ckpt', type=str, default='checkpoint/teacher/cifar10-resnet34_8x.pt')
+    parser.add_argument('--ckpt', type=str, default='checkpoint/teacher/model.pt')
     
 
     parser.add_argument('--student_load_path', type=str, default=None)
