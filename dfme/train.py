@@ -198,7 +198,7 @@ def main():
 
     parser.add_argument('--dataset', type=str, default='cifar10', choices=['svhn','cifar10'], help='dataset name (default: cifar10)')
     parser.add_argument('--data_root', type=str, default='data')
-    parser.add_argument('--model', type=str, default='resnet34_8x', choices=classifiers, help='Target model name (default: resnet34_8x)')
+    parser.add_argument('--model', type=str, default='dla', choices=classifiers, help='Target model name (default: resnet34_8x)')
     parser.add_argument('--weight_decay', type=float, default=5e-4)
     parser.add_argument('--momentum', type=float, default=0.9, metavar='M',
                         help='SGD momentum (default: 0.9)')
@@ -323,14 +323,16 @@ def main():
     num_classes = 10 if args.dataset in ['cifar10', 'svhn'] else 100
     args.num_classes = num_classes
 
-    if args.model == 'resnet34_8x':
-        teacher = network.resnet_8x.ResNet34_8x(num_classes=num_classes)
-        if args.dataset == 'svhn':
-            print("Loading SVHN TEACHER")
-            args.ckpt = 'checkpoint/teacher/svhn-resnet34_8x.pt'
-        teacher.load_state_dict( torch.load( args.ckpt, map_location=device) )
-    else:
-        teacher = get_classifier(args.model, pretrained=True, num_classes=args.num_classes)
+    # if args.model == 'resnet34_8x':
+    #     teacher = network.resnet_8x.ResNet34_8x(num_classes=num_classes)
+    #     if args.dataset == 'svhn':
+    #         print("Loading SVHN TEACHER")
+    #         args.ckpt = 'checkpoint/teacher/svhn-resnet34_8x.pt'
+    #     teacher.load_state_dict( torch.load( args.ckpt, map_location=device) )
+    # else:
+    #     teacher = get_classifier(args.model, pretrained=True, num_classes=args.num_classes)
+    teacher = network.dla.SimpleDLA()
+    teacher.load_state_dict(torch.load(args.ckpt, map_location=device))
     
     
 

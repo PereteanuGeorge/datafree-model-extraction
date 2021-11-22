@@ -84,4 +84,5 @@ classifiers = [
     "wrn-28-10",
     "resnet18_8x",
     "kt-wrn-40-2",
+    "dla",
 ]
